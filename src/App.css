@@ -1,0 +1,42 @@
+.App {
+  height: 100vh;
+  width: 100vw;
+  background-image: url(evening_background.webp);
+  background-position: center;
+  position: relative;
+}
+
+.app_container {
+  width: 90%;
+  margin: auto;
+}
+
+.form_container {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.form {
+  position: fixed;
+  left: 10%;
+  right: 10%;
+  bottom: 10px;
+}
+
+.searchButton,
+.searchInput {
+  padding: 10px;
+  border: 2px solid black;
+  background-color: white;
+  transition: all 0.2s;
+}
+
+.searchInput {
+  width: 100%;
+  border-right: none;
+}
+
+.searchButton:hover {
+  background-color: pink;
+}

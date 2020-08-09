@@ -1,0 +1,23 @@
+.secondary_card {
+  background-color: rgba(219, 112, 130, 0.4);
+  display: flex;
+  padding: 5px;
+  min-height: 25vh;
+  align-items: center;
+  margin-top: 5vh;
+}
+
+.day,
+.weather_type,
+.secondary_temperature {
+  flex: 1;
+  text-align: center;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.day div:not(:last-child),
+.weather_type div:not(:last-child),
+.secondary_temperature div:not(:last-child) {
+  margin-bottom: 10px;
+}

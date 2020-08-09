@@ -1,0 +1,39 @@
+.main_card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(219, 112, 130, 0.4);
+  margin: 5px 20px;
+  border-radius: 10px;
+  padding: 10px 20px;
+  min-height: 20vh;
+}
+
+.date {
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+.temperature {
+  font-size: 3rem;
+  margin: 5px 0;
+}
+
+.min_temperature {
+  margin-right: 5px;
+}
+
+.max_temperature {
+  margin-left: 5px;
+}
+
+.weather {
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.weather_image_container {
+  margin-bottom: 6px;
+  align-self: center;
+  text-align: center;
+}

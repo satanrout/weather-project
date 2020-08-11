@@ -16,14 +16,23 @@ const App = () => {
     fifthDay: "",
   });
   const [currentInput, setCurrentInput] = useState("delhi");
+  const [loadKey, setLoadKey] = useState(false);
+  const [currentLocation, setCurrentLocation] = useState("");
   // const [areaKey, setAreaKey] = useState("");
+  const [otherForeCast, setOtherForeCast] = useState({
+    day2: "",
+    day3: "",
+    day4: "",
+    day5: "",
+  });
   const [foreCast, setForeCast] = useState({
-    headLine: "test",
-    test: "",
-    temprature: {
+    temperature: {
+      average: "",
       min: "",
       max: "",
     },
+    weatherType: "",
+    weatherIntensity: "",
   });
 
   const apiKey = "55MDci99GXjrDobAalHHV6YR4DL8R8YK";
@@ -67,40 +76,73 @@ const App = () => {
     });
   }, []);
 
-  const locationKey = () => {
+  const handleClick = () => {
+    setLoadKey(!loadKey);
+  };
+
+  useEffect(() => {
     fetch(
       `http://dataservice.accuweather.com/locations/v1/search?apikey=${apiKey}&q=${currentInput}`
     ).then((response) =>
-      response.json().then((data) => getForecast(data[0].Key))
+      response.json().then((data) => {
+        setCurrentLocation(data[0].EnglishName);
+        getForecast(data[0].Key);
+      })
     );
-  };
+  }, [loadKey]);
 
   const getForecast = (areaKey) => {
     fetch(
       `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${areaKey}?apikey=${apiKey}`
     ).then((response) =>
-      response.json().then(
-        (data) => console.log(data)
-        // setForeCast({
-        //   headLine: data.Headline.Text,
-        //   test: data,
-        //   temprature: {
-        //     min:
-        //       (data.DailyForecasts[0].Temperature.Minimum.Value - 32) * (5 / 9),
-        //     max:
-        //       (data.DailyForecasts[0].Temperature.Maximum.Value - 32) * (5 / 9),
-        //   },
-        // })
-      )
+      response.json().then((data) => {
+        const days = data.DailyForecasts;
+        setForeCast({
+          temperature: {
+            average: Math.round(
+              ((days[0].Temperature.Minimum.Value - 32) * (5 / 9) +
+                (days[0].Temperature.Maximum.Value - 32) * (5 / 9)) /
+                2
+            ),
+            min: Math.round((days[0].Temperature.Minimum.Value - 32) * (5 / 9)),
+            max: Math.round((days[0].Temperature.Maximum.Value - 32) * (5 / 9)),
+          },
+          weatherType: days[0].Day.PrecipitationType,
+          weatherIntensity: days[0].Day.PrecipitationIntensity,
+        });
+
+        setOtherForeCast({
+          day2: Math.round(
+            ((days[1].Temperature.Minimum.Value - 32) * (5 / 9) +
+              (days[1].Temperature.Maximum.Value - 32) * (5 / 9)) /
+              2
+          ),
+          day3: Math.round(
+            ((days[2].Temperature.Minimum.Value - 32) * (5 / 9) +
+              (days[2].Temperature.Maximum.Value - 32) * (5 / 9)) /
+              2
+          ),
+          day4: Math.round(
+            ((days[3].Temperature.Minimum.Value - 32) * (5 / 9) +
+              (days[3].Temperature.Maximum.Value - 32) * (5 / 9)) /
+              2
+          ),
+          day5: Math.round(
+            ((days[4].Temperature.Minimum.Value - 32) * (5 / 9) +
+              (days[4].Temperature.Maximum.Value - 32) * (5 / 9)) /
+              2
+          ),
+        });
+      })
     );
   };
 
   return (
     <div className="App">
       <div className="app_container">
-        <Header />
-        <MainCard date={date} />
-        <SecondaryCard date={date} />
+        <Header currentLocation={currentLocation} />
+        <MainCard foreCast={foreCast} date={date} />
+        <SecondaryCard otherForeCast={otherForeCast} date={date} />
         <div className="form">
           <div className="form_container">
             <input
@@ -109,7 +151,7 @@ const App = () => {
               onChange={userInput}
               type="text"
             />
-            <button className="searchButton" onClick={locationKey()}>
+            <button className="searchButton" onClick={handleClick}>
               Search
             </button>
           </div>

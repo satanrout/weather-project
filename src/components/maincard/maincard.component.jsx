@@ -2,17 +2,21 @@ import React from "react";
 import "./maincard.style.css";
 import rain from "./rain.svg";
 
-const MainCard = ({ date }) => {
+const MainCard = ({ date, foreCast }) => {
   return (
     <div className="main_card">
       <div className="left">
         <div className="date">
           {date.currentDay} {date.currentDate}th {date.currentMonth}
         </div>
-        <div className="temperature">29°C</div>
+        <div className="temperature">{foreCast.temperature.average}°C</div>
         <div className="min_max">
-          <span className="min_temperature">↓ 26°C</span>
-          <span className="max_temperature">↑ 32°C</span>
+          <span className="min_temperature">
+            ↓ {foreCast.temperature.min}°C
+          </span>
+          <span className="max_temperature">
+            ↑ {foreCast.temperature.max}°C
+          </span>
         </div>
       </div>
       <div className="right">
@@ -25,7 +29,9 @@ const MainCard = ({ date }) => {
           />
         </div>
 
-        <div className="weather">Heavy Rain</div>
+        <div className="weather">
+          {foreCast.weatherIntensity + " " + foreCast.weatherType}
+        </div>
         <div className="feel">Feels Like 35°C</div>
       </div>
     </div>

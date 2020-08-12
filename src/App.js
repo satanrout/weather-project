@@ -5,6 +5,11 @@ import Header from "./components/header/header.component";
 import MainCard from "./components/maincard/maincard.component";
 import SecondaryCard from "./components/secondarycard/SecondaryCard.component";
 
+import snow from "./images/snow.webp";
+import sunny from "./images/sunny.webp";
+import cloudy from "./images/cloudy.webp";
+import rain from "./images/rain.webp";
+
 const App = () => {
   const [date, setDate] = useState({
     currentDate: "",
@@ -19,6 +24,12 @@ const App = () => {
   const [loadKey, setLoadKey] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("");
   // const [areaKey, setAreaKey] = useState("");
+  const [weather, setWeather] = useState({
+    day2: "",
+    day3: "",
+    day4: "",
+    day5: "",
+  });
   const [otherForeCast, setOtherForeCast] = useState({
     day2: "",
     day3: "",
@@ -33,6 +44,7 @@ const App = () => {
     },
     weatherType: "",
     weatherIntensity: "",
+    IconPhrase: "",
   });
 
   const apiKey = "55MDci99GXjrDobAalHHV6YR4DL8R8YK";
@@ -107,8 +119,12 @@ const App = () => {
             min: Math.round((days[0].Temperature.Minimum.Value - 32) * (5 / 9)),
             max: Math.round((days[0].Temperature.Maximum.Value - 32) * (5 / 9)),
           },
-          weatherType: days[0].Day.PrecipitationType,
-          weatherIntensity: days[0].Day.PrecipitationIntensity,
+          weatherType:
+            days[0].Day.HasPrecipitation === true
+              ? days[0].Day.PrecipitationIntensity +
+                " " +
+                days[0].Day.PrecipitationType
+              : days[0].Day.IconPhrase,
         });
 
         setOtherForeCast({
@@ -133,19 +149,67 @@ const App = () => {
               2
           ),
         });
+
+        setWeather({
+          day2:
+            days[1].Day.HasPrecipitation === true
+              ? days[1].Day.PrecipitationIntensity +
+                " " +
+                days[1].Day.PrecipitationType
+              : days[1].Day.IconPhrase,
+          day3:
+            days[2].Day.HasPrecipitation === true
+              ? days[2].Day.PrecipitationIntensity +
+                " " +
+                days[2].Day.PrecipitationType
+              : days[2].Day.IconPhrase,
+          day4:
+            days[3].Day.HasPrecipitation === true
+              ? days[3].Day.PrecipitationIntensity +
+                " " +
+                days[3].Day.PrecipitationType
+              : days[3].Day.IconPhrase,
+          day5:
+            days[4].Day.HasPrecipitation === true
+              ? days[4].Day.PrecipitationIntensity +
+                " " +
+                days[4].Day.PrecipitationType
+              : days[4].Day.IconPhrase,
+        });
       })
     );
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      setLoadKey(!loadKey);
+    }
+  };
+
+  const background = {
+    backgroundImage: foreCast.weatherType.includes("Rain")
+      ? `url(${rain})`
+      : foreCast.weatherType.includes("Cloudy")
+      ? `url(${cloudy})`
+      : foreCast.weatherType.includes("now")
+      ? `url(${snow})`
+      : `url(${sunny})`,
+  };
+
   return (
-    <div className="App">
+    <div style={background} className="App">
       <div className="app_container">
         <Header currentLocation={currentLocation} />
         <MainCard foreCast={foreCast} date={date} />
-        <SecondaryCard otherForeCast={otherForeCast} date={date} />
+        <SecondaryCard
+          weather={weather}
+          otherForeCast={otherForeCast}
+          date={date}
+        />
         <div className="form">
           <div className="form_container">
             <input
+              onKeyPress={handleKeyPress}
               placeholder="search for location"
               className="searchInput"
               onChange={userInput}

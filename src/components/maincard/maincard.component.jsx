@@ -1,8 +1,21 @@
 import React from "react";
 import "./maincard.style.css";
-import rain from "./rain.svg";
+import rain from "../../images/rain.svg";
+import snow from "../../images/snow.svg";
+import sunny from "../../images/sunny.svg";
+import cloudy from "../../images/cloudy.svg";
 
 const MainCard = ({ date, foreCast }) => {
+  const weatherImage = foreCast.weatherType.includes("ain") ? (
+    <img className="weather_image" src={rain} alt={"rainy"} width="48px" />
+  ) : foreCast.weatherType.includes("un") ? (
+    <img className="weather_image" src={sunny} alt={"sunny"} width="48px" />
+  ) : foreCast.weatherType.includes("loud") ? (
+    <img className="weather_image" src={cloudy} alt={"cloudy"} width="48px" />
+  ) : (
+    <img className="weather_image" src={snow} alt={"snow"} width="48px" />
+  );
+
   return (
     <div className="main_card">
       <div className="left">
@@ -20,18 +33,9 @@ const MainCard = ({ date, foreCast }) => {
         </div>
       </div>
       <div className="right">
-        <div className="weather_image_container">
-          <img
-            className="weather_image"
-            src={rain}
-            alt={"rainy"}
-            width="48px"
-          />
-        </div>
+        <div className="weather_image_container">{weatherImage}</div>
 
-        <div className="weather">
-          {foreCast.weatherIntensity + " " + foreCast.weatherType}
-        </div>
+        <div className="weather">{foreCast.weatherType}</div>
         <div className="feel">Feels Like 35°C</div>
       </div>
     </div>

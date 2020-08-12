@@ -1,7 +1,7 @@
 import React from "react";
 import "./secondarycard.style.css";
 
-const SecondaryCard = ({ date, otherForeCast }) => {
+const SecondaryCard = ({ weather, date, otherForeCast }) => {
   // i can add a logic to show add 'ur' to sat
   return (
     <div className="secondary_card">
@@ -12,10 +12,10 @@ const SecondaryCard = ({ date, otherForeCast }) => {
         <div>{date.fifthDay}day</div>
       </div>
       <div className="weather_type">
-        <div>Rain</div>
-        <div>Rain</div>
-        <div>Rain</div>
-        <div>Rain</div>
+        <div>{weather.day2}</div>
+        <div>{weather.day3}</div>
+        <div>{weather.day4}</div>
+        <div>{weather.day5}</div>
       </div>
       <div className="secondary_temperature">
         <div>{otherForeCast.day2}°C</div>

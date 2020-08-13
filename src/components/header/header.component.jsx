@@ -1,6 +1,6 @@
 import React from "react";
 import "./header.style.css";
-import cloud from "./cloud.svg";
+import cloud from "../../images/cloud.svg";
 
 const Header = ({ currentLocation }) => {
   return (

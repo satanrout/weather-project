@@ -9,6 +9,7 @@ import snow from "./images/snow.webp";
 import sunny from "./images/sunny.webp";
 import cloudy from "./images/cloudy.webp";
 import rain from "./images/rain.webp";
+import spinner from "./images/spinner.gif";
 
 const App = () => {
   const [date, setDate] = useState({
@@ -24,6 +25,7 @@ const App = () => {
   const [load, setLoad] = useState("");
   const [loadKey, setLoadKey] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("");
+  const [spin, setSpin] = useState("");
   // const [areaKey, setAreaKey] = useState("");
   const [weather, setWeather] = useState({
     day2: "",
@@ -118,6 +120,7 @@ const App = () => {
       `https://dataservice.accuweather.com/locations/v1/search?apikey=${apiKey}&q=${currentInput}`
     ).then((response) =>
       response.json().then((data) => {
+        setSpin("flex");
         setCurrentLocation(
           data[0] === undefined ? undefined : data[0].EnglishName
         );
@@ -199,6 +202,7 @@ const App = () => {
                 days[4].Day.PrecipitationType
               : days[4].Day.IconPhrase,
         });
+        setSpin("none");
       })
     );
   };
@@ -209,6 +213,10 @@ const App = () => {
       setCurrentInput(load);
     }
   };
+
+  // showLoader = () => {
+
+  // }
 
   const background = {
     backgroundImage: foreCast.weatherType.includes("Rain")
@@ -238,6 +246,14 @@ const App = () => {
             />
           </div>
         )}
+        <div style={{ display: spin }} className="spinner">
+          <img
+            style={{ display: spin }}
+            className="spinner_img"
+            src={spinner}
+            alt="spinner"
+          />
+        </div>
         <div className="form">
           <div className="form_container">
             <input

@@ -39,3 +39,25 @@
 .searchButton:hover {
   background-color: pink;
 }
+
+.spinner {
+  display: none;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0.199);
+  z-index: 1;
+}
+
+.spinner_img {
+  display: none;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}

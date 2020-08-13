@@ -22,16 +22,9 @@ class ErrorBoundary extends Component {
 
     // Display custom UI if there are errors
     // in our application
-    const style = {
-      color: "red",
-      fontSize: "2em",
-      margin: "auto",
-    };
 
     return (
-      <div style={style}>
-        Location is not valid. Please search again with correct info.
-      </div>
+      <div>Location is not valid. Please search again with correct info.</div>
     );
   }
 }

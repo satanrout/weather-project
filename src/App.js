@@ -225,13 +225,14 @@ const App = () => {
       <div className="app_container">
         <ErrorBoundary>
           <Header currentLocation={currentLocation} />
-          <MainCard foreCast={foreCast} date={date} />
-          <SecondaryCard
-            weather={weather}
-            otherForeCast={otherForeCast}
-            date={date}
-          />
         </ErrorBoundary>
+        <MainCard foreCast={foreCast} date={date} />
+        <SecondaryCard
+          weather={weather}
+          otherForeCast={otherForeCast}
+          date={date}
+        />
+
         <div className="form">
           <div className="form_container">
             <input

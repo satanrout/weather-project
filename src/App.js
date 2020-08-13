@@ -126,7 +126,7 @@ const App = () => {
 
   const getForecast = (areaKey) => {
     fetch(
-      `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${areaKey}?apikey=${apiKey}`
+      `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${areaKey}?apikey=${apiKey}`
     ).then((response) =>
       response.json().then((data) => {
         const days = data.DailyForecasts;

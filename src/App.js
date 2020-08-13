@@ -118,7 +118,9 @@ const App = () => {
       `https://dataservice.accuweather.com/locations/v1/search?apikey=${apiKey}&q=${currentInput}`
     ).then((response) =>
       response.json().then((data) => {
-        setCurrentLocation(data[0].EnglishName);
+        setCurrentLocation(
+          data[0] === undefined ? undefined : data[0].EnglishName
+        );
         getForecast(data[0].Key);
       })
     );

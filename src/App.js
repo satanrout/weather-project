@@ -21,6 +21,7 @@ const App = () => {
     fifthDay: "",
   });
   const [currentInput, setCurrentInput] = useState("delhi");
+  const [load, setLoad] = useState("");
   const [loadKey, setLoadKey] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("");
   // const [areaKey, setAreaKey] = useState("");
@@ -50,7 +51,7 @@ const App = () => {
   const apiKey = "55MDci99GXjrDobAalHHV6YR4DL8R8YK";
 
   const userInput = (e) => {
-    setCurrentInput(e.target.value);
+    setLoad(e.target.value);
   };
 
   useEffect(() => {
@@ -68,7 +69,26 @@ const App = () => {
       "Nov",
       "Dec",
     ];
-    const days = ["Sun", "Mon", "Tue", "Wed", "Thurs", "Fri", "Sat"];
+    const days = [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thurs",
+      "Fri",
+      "Sat",
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+    ];
+    // const now = new Date();
+    // for (let i = 1; i < 8; i++) {
+    //   const test = (now.getDay() + i) % 7;
+    //   const arr = [];
+    //   arr.push([days[test]]);
+    //   console.log(arr);
+    // }
     const currentMonth = months[new Date().getMonth()];
     const currentDay = days[new Date().getDay()];
     const currentDate = new Date().getDate();
@@ -90,18 +110,19 @@ const App = () => {
 
   const handleClick = () => {
     setLoadKey(!loadKey);
+    setCurrentInput(load);
   };
 
   useEffect(() => {
     fetch(
-      `http://dataservice.accuweather.com/locations/v1/search?apikey=${apiKey}&q=${currentInput}`
+      `https://dataservice.accuweather.com/locations/v1/search?apikey=${apiKey}&q=${currentInput}`
     ).then((response) =>
       response.json().then((data) => {
         setCurrentLocation(data[0].EnglishName);
         getForecast(data[0].Key);
       })
     );
-  }, [loadKey]);
+  }, [currentInput]);
 
   const getForecast = (areaKey) => {
     fetch(
@@ -183,13 +204,14 @@ const App = () => {
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       setLoadKey(!loadKey);
+      setCurrentInput(load);
     }
   };
 
   const background = {
     backgroundImage: foreCast.weatherType.includes("Rain")
       ? `url(${rain})`
-      : foreCast.weatherType.includes("Cloudy")
+      : foreCast.weatherType.includes("loudy")
       ? `url(${cloudy})`
       : foreCast.weatherType.includes("now")
       ? `url(${snow})`
@@ -258,9 +280,9 @@ const App = () => {
   // getLocation(currentInput)
   //   .then((data) => getForecast(data.Key))
   //   .then((data) => console.log(data, "then"));
-  /* {foreCast.headLine !== "test" ? (
+  /* {foreCast.headLine !== "load" ? (
         <div>
-          {console.log(foreCast.test)}
+          {console.log(foreCast.load)}
           <h2>{foreCast.headLine}</h2>
           <span>Min: {Math.round(foreCast.temprature.min)}c</span>
           <span>Max: {Math.round(foreCast.temprature.max)}c</span>

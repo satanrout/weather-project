@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
+import ErrorBoundary from "./components/errorBoundary";
+
 import Header from "./components/header/header.component";
 import MainCard from "./components/maincard/maincard.component";
 import SecondaryCard from "./components/secondarycard/SecondaryCard.component";
@@ -221,13 +223,15 @@ const App = () => {
   return (
     <div style={background} className="App">
       <div className="app_container">
-        <Header currentLocation={currentLocation} />
-        <MainCard foreCast={foreCast} date={date} />
-        <SecondaryCard
-          weather={weather}
-          otherForeCast={otherForeCast}
-          date={date}
-        />
+        <ErrorBoundary>
+          <Header currentLocation={currentLocation} />
+          <MainCard foreCast={foreCast} date={date} />
+          <SecondaryCard
+            weather={weather}
+            otherForeCast={otherForeCast}
+            date={date}
+          />
+        </ErrorBoundary>
         <div className="form">
           <div className="form_container">
             <input

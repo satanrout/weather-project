@@ -50,7 +50,7 @@ const App = () => {
     IconPhrase: "",
   });
 
-  const apiKey = "55MDci99GXjrDobAalHHV6YR4DL8R8YK";
+  const apiKey = "dCmZurmY3VbG2iJHGEu44Ya6MY4HNkL7";
 
   const userInput = (e) => {
     setLoad(e.target.value);

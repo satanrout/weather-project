@@ -36,7 +36,15 @@ const MainCard = ({ date, foreCast }) => {
         <div className="weather_image_container">{weatherImage}</div>
 
         <div className="weather">{foreCast.weatherType}</div>
-        <div className="feel">Feels Like 35°C</div>
+        <div className="feel">
+          {foreCast.temperature.average < 25
+            ? "it's so cold today"
+            : foreCast.temperature.average > 36
+            ? "it's really hot today"
+            : foreCast.weatherType.includes("Rain")
+            ? "bring your umbrella"
+            : "nice weather today"}
+        </div>
       </div>
     </div>
   );

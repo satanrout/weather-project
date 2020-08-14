@@ -25,6 +25,7 @@ const App = () => {
   const [load, setLoad] = useState("");
   const [loadKey, setLoadKey] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("");
+  const [value, setValue] = useState("");
   const [spin, setSpin] = useState("");
   // const [areaKey, setAreaKey] = useState("");
   const [weather, setWeather] = useState({
@@ -53,7 +54,9 @@ const App = () => {
   const apiKey = "dCmZurmY3VbG2iJHGEu44Ya6MY4HNkL7";
 
   const userInput = (e) => {
+    e.preventDefault();
     setLoad(e.target.value);
+    setValue(e.target.value);
   };
 
   useEffect(() => {
@@ -113,6 +116,7 @@ const App = () => {
   const handleClick = () => {
     setLoadKey(!loadKey);
     setCurrentInput(load);
+    setValue("");
   };
 
   useEffect(() => {
@@ -211,6 +215,7 @@ const App = () => {
     if (event.key === "Enter") {
       setLoadKey(!loadKey);
       setCurrentInput(load);
+      setValue("");
     }
   };
 
@@ -257,6 +262,7 @@ const App = () => {
         <div className="form">
           <div className="form_container">
             <input
+              value={value}
               onKeyPress={handleKeyPress}
               placeholder="search for location"
               className="searchInput"

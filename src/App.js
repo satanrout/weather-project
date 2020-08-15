@@ -51,7 +51,7 @@ const App = () => {
     IconPhrase: "",
   });
 
-  const apiKey = "dCmZurmY3VbG2iJHGEu44Ya6MY4HNkL7";
+  const apiKey = "9WfGTG0MYPsuErsNVQZWocyANDUpxxXu";
 
   const userInput = (e) => {
     e.preventDefault();
